@@ -1,6 +1,9 @@
 <template>
     <header>
         <h1><img src="../assets/logo.png" alt="" /></h1>
+        <button class="button" @click="alterarTema">
+            {{ textoBotao }}
+        </button>
     </header>
 </template>
 
@@ -9,6 +12,27 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "BarraLateral",
+
+    emits: ['aoTemaAlterado'],
+
+    data() {
+        return {
+            modoEscuroAtivo: false
+        }
+    },
+
+    computed: {
+        textoBotao(): string {
+            return this.modoEscuroAtivo ? 'Desativar modo escuro' : 'Ativar modo escuro'
+        }
+    },
+
+    methods: {
+        alterarTema(): void {
+            this.modoEscuroAtivo = !this.modoEscuroAtivo
+            this.$emit('aoTemaAlterado', this.modoEscuroAtivo)
+        }
+    }
 });
 </script>
 
@@ -18,6 +42,7 @@ header {
     background: #0d3b66;
     width: 100%;
     height: 100vh;
+    text-align: center;
 }
 
 @media only screen and (max-width: 768px) {
