@@ -31,6 +31,8 @@ export default defineComponent({
 
     components: { Temporizador },
 
+    emits: ['aoSalvarTarefa'],
+
     data() {
         return {
             descricao: "",
@@ -39,7 +41,11 @@ export default defineComponent({
 
     methods: {
         finalizarTarefa(tempoDecorrido: number): void {
-            console.log(this.descricao, tempoDecorrido);
+            this.$emit('aoSalvarTarefa', {
+                duracaoEmSegundos: tempoDecorrido,
+                descricao: this.descricao || 'Tarefa sem descrição'
+            })
+
             this.descricao = "";
         },
     },
