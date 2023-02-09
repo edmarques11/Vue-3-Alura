@@ -4,23 +4,40 @@ const routes: RouteRecordRaw[] = [
     {
         path: "/",
         name: "Tarefas",
-        component: () => import("@/views/Tarefas.vue"),
+        component: () =>
+            import(/* webpackChunkName: "Tarefas" */ "@/views/Tarefas.vue"),
     },
     {
         path: "/projetos",
-        name: "Projetos",
-        component: () => import("@/views/Projetos.vue"),
-    },
-    {
-        path: "/projetos/novo",
-        name: "Novo Projeto",
-        component: () => import("@/views/projetos/Formulario.vue"),
-    },
-    {
-        path: "/projetos/:id",
-        name: "Editar Projeto",
-        component: () => import("@/views/projetos/Formulario.vue"),
-        props: true
+        component: () =>
+            import(/* webpackChunkName: "Projetos" */ "@/views/Projetos.vue"),
+        children: [
+            {
+                path: "/projetos",
+                name: "",
+                component: () =>
+                    import(
+                        /* webpackChunkName: "Lista" */ "@/views/projetos/Lista.vue"
+                    ),
+            },
+            {
+                path: "novo",
+                name: "Novo Projeto",
+                component: () =>
+                    import(
+                        /* webpackChunkName: "Formulario" */ "@/views/projetos/Formulario.vue"
+                    ),
+            },
+            {
+                path: ":id",
+                name: "Editar Projeto",
+                component: () =>
+                    import(
+                        /* webpackChunkName: "Formulario" */ "@/views/projetos/Formulario.vue"
+                    ),
+                props: true,
+            },
+        ],
     },
 ];
 
